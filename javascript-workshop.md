@@ -977,9 +977,78 @@ console.log("เลขคู่:", evenNumbers); // [2, 4]
 
 ### บันทึกผลการทดลอง 3.1
 ```html
-[บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณค่า BMI (Arrow Function)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        
+        input {
+            margin: 5px;
+            padding: 8px;
+            width: 150px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>คำนวณค่า BMI</h1>
+    <label>น้ำหนัก (kg): <input type="number" id="weight"></label><br>
+    <label>ส่วนสูง (cm): <input type="number" id="height"></label><br>
+    <button onclick="calculateBMI()">คำนวณ BMI</button>
+    <p class="result" id="bmiResult"></p>
+
+    <script>
+        // ฟังก์ชันคำนวณ BMI (Arrow Function)
+        const calculateBMI = () => {
+            let weight = parseFloat(document.getElementById("weight").value);
+            let height = parseFloat(document.getElementById("height").value) / 100; // แปลง cm เป็น m
+
+            if (weight > 0 && height > 0) {
+                let bmi = weight / (height ** 2);
+                let status =
+                    bmi < 18.5 ? " ผอม" :
+                    bmi < 25 ? " สมส่วน" :
+                    " อ้วน";
+
+                document.getElementById("bmiResult").innerText = `ค่า BMI: ${bmi.toFixed(2)} (${status})`;
+            } else {
+                document.getElementById("bmiResult").innerText = "❌ กรุณากรอกข้อมูลให้ถูกต้อง";
+            }
+        };
+    </script>
+
+</body>
+
+</html>
 ```
 [รูปผลการทดลองที่ 3.1]
+![image](https://github.com/user-attachments/assets/8273f00e-6c38-489f-8b75-e7f80299283f)
 
 ## การทดลองที่ 3.2 : การสร้างฟอร์มสำหรับจองห้องพัก
 การสร้างฟอร์มลงทะเบียนเพื่อรวบรวมข้อมูลที่จำเป็นสำหรับการจองห้องพัก
