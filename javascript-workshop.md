@@ -240,9 +240,79 @@ number /= 2;          // เท่ากับ number = number / 2
 
 ### บันทึกผลการทดลอง 2.2
 ```html
-[บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณคะแนนเฉลี่ยและ VAT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>📌 คำนวณคะแนนเฉลี่ย</h2>
+    <label>คะแนนวิชา 1: <input type="number" id="score1"></label><br>
+    <label>คะแนนวิชา 2: <input type="number" id="score2"></label><br>
+    <label>คะแนนวิชา 3: <input type="number" id="score3"></label><br>
+    <button onclick="calculateAverage()">คำนวณ</button>
+    <p class="result" id="averageResult"></p>
+
+    <hr>
+
+    <h2>🛒 คำนวณราคาสินค้ารวม VAT 7%</h2>
+    <label>ชื่อสินค้า: <input type="text" id="productName"></label><br>
+    <label>ราคาสินค้า: <input type="number" id="productPrice"></label><br>
+    <button onclick="calculateVAT()">คำนวณ</button>
+    <p class="result" id="vatResult"></p>
+
+    <script>
+        function calculateAverage() {
+            let score1 = parseFloat(document.getElementById("score1").value) || 0;
+            let score2 = parseFloat(document.getElementById("score2").value) || 0;
+            let score3 = parseFloat(document.getElementById("score3").value) || 0;
+            let average = (score1 + score2 + score3) / 3;
+            document.getElementById("averageResult").innerText = "คะแนนเฉลี่ย: " + average.toFixed(2);
+        }
+
+        function calculateVAT() {
+            let productName = document.getElementById("productName").value;
+            let productPrice = parseFloat(document.getElementById("productPrice").value) || 0;
+            let vat = productPrice * 0.07;
+            let totalPrice = productPrice + vat;
+            document.getElementById("vatResult").innerText =
+                `สินค้าชื่อ: ${productName} | ราคาสินค้ารวม VAT 7%: ${totalPrice.toFixed(2)} บาท`;
+        }
+    </script>
+
+</body>
+
+</html>
 ```
 [รูปผลการทดลองที่ 2.2]
+![image](https://github.com/user-attachments/assets/9a6e5c72-0da7-499d-91d8-5b7982418bd3)
 
 ### 2.3 การควบคุมการทำงาน
 
@@ -373,9 +443,114 @@ for (let i = 1; i <= 5; i++) {
 
 ### บันทึกผลการทดลอง 2.3
 ```html
-[บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัด JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>1️⃣ ตรวจสอบเลขคู่หรือเลขคี่</h2>
+    <label>ป้อนตัวเลข: <input type="number" id="number"></label>
+    <button onclick="checkEvenOdd()">ตรวจสอบ</button>
+    <p class="result" id="evenOddResult"></p>
+
+    <hr>
+
+    <h2>2️⃣ ตารางสูตรคูณ</h2>
+    <button onclick="multiplicationTable()">แสดงสูตรคูณ</button>
+    <pre class="result" id="multiplicationResult"></pre>
+
+    <hr>
+
+    <h2>3️⃣ นับถอยหลังจาก 10 ถึง 1</h2>
+    <button onclick="countdown()">เริ่มนับถอยหลัง</button>
+    <p class="result" id="countdownResult"></p>
+
+    <hr>
+
+    <h2>4️⃣ ตรวจสอบช่วงวัย</h2>
+    <label>ป้อนอายุ: <input type="number" id="age"></label>
+    <button onclick="checkAge()">ตรวจสอบ</button>
+    <p class="result" id="ageResult"></p>
+
+    <script>
+        function checkEvenOdd() {
+            let number = parseInt(document.getElementById("number").value);
+            let result = (number % 2 === 0) ? "เป็นเลขคู่" : "เป็นเลขคี่";
+            document.getElementById("evenOddResult").innerText = `ผลลัพธ์: ${result}`;
+        }
+
+        function multiplicationTable() {
+            let result = "🔹 สูตรคูณแม่ 2 (ใช้ for loop)\n";
+            for (let i = 1; i <= 12; i++) {
+                result += `2 x ${i} = ${2 * i}\n`;
+            }
+
+            result += "\n🔹 สูตรคูณแม่ 3 (ใช้ while loop)\n";
+            let j = 1;
+            while (j <= 12) {
+                result += `3 x ${j} = ${3 * j}\n`;
+                j++;
+            }
+
+            document.getElementById("multiplicationResult").innerText = result;
+        }
+
+        function countdown() {
+            let result = "⏳ นับถอยหลัง: ";
+            for (let i = 10; i >= 1; i--) {
+                result += i + " ";
+            }
+            document.getElementById("countdownResult").innerText = result;
+        }
+
+        function checkAge() {
+            let age = parseInt(document.getElementById("age").value);
+            let category = "";
+
+            if (age >= 0 && age <= 12) {
+                category = "วัยเด็ก";
+            } else if (age >= 13 && age <= 19) {
+                category = "วัยรุ่น";
+            } else if (age >= 20) {
+                category = "วัยผู้ใหญ่";
+            } else {
+                category = "อายุไม่ถูกต้อง";
+            }
+
+            document.getElementById("ageResult").innerText = `ช่วงวัยของคุณ: ${category}`;
+        }
+    </script>
+
+</body>
+</html>
+
 ```
 [รูปผลการทดลองที่ 2.3]
+![image](https://github.com/user-attachments/assets/fe463805-4d21-4277-9981-21d3b72cbe5b)
+![image](https://github.com/user-attachments/assets/814e6fb4-3165-4c36-ae82-8f3af16b03e9)
 
 ### 2.4 Functions และ Arrow Functions
 
