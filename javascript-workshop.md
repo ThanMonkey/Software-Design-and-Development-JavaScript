@@ -1205,12 +1205,82 @@ console.log("เลขคู่:", evenNumbers); // [2, 4]
 
 ### ผลการทดลอง
 ทดสอบปรับแต่ง CSS ในแต่ละส่วน แล้วเขียน สรุปผลการทดลองว่าได้ทดลองเปลี่ยนส่วนใด แล้วผลเป็นอย่างไร พร้อมแนบรูปประกอบการทดลอง
-
+เพิม NOTI BOX โดยใช้ js เปลี่ยนรุูปแบบหน้าตา ui ให้เข้าใจง่ายขึ้น
 ### บันทึกผลการทดลอง 3.2.2
 ```html
-[บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองห้องพักออนไลน์</title>
+
+    <!-- โหลดฟอนต์จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- เชื่อมต่อไฟล์ CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <h1>แบบฟอร์มจองห้องพัก</h1>
+
+    <form id="bookingForm">
+        <div class="form-group">
+            <label for="fullname">ชื่อ-นามสกุล:</label>
+            <input type="text" id="fullname" name="fullname" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">อีเมล:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">เบอร์โทรศัพท์:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="checkin">วันที่เช็คอิน:</label>
+            <input type="date" id="checkin" name="checkin" required>
+        </div>
+
+        <div class="form-group">
+            <label for="checkout">วันที่เช็คเอาท์:</label>
+            <input type="date" id="checkout" name="checkout" required>
+        </div>
+
+        <div class="form-group">
+            <label for="roomtype">ประเภทห้องพัก:</label>
+            <select id="roomtype" name="roomtype" required>
+                <option value="">กรุณาเลือกประเภทห้องพัก</option>
+                <option value="standard">ห้องมาตรฐาน</option>
+                <option value="deluxe">ห้องดีลักซ์</option>
+                <option value="suite">ห้องสวีท</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="guests">จำนวนผู้เข้าพัก:</label>
+            <input type="number" id="guests" name="guests" min="1" max="4" required>
+        </div>
+
+        <button type="submit">จองห้องพัก</button>
+    </form>
+
+    <!-- เชื่อมต่อไฟล์ JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
 ```
 [รูปผลการทดลองที่ 3.2.2]
+![image](https://github.com/user-attachments/assets/6d9ea86a-a010-4c8f-af24-c7558015135b)
+
 
 
 ## ขั้นตอนที่ 3.2.3: การเพิ่มฟังก์ชันด้วย JavaScript
@@ -1312,13 +1382,123 @@ console.log("เลขคู่:", evenNumbers); // [2, 4]
 
 ### ผลการทดลอง
 ทดสอบปรับแต่ง JavaScript ในแต่ละส่วน แล้วอธิบายโค้ดในแต่ละส่วน เขียนสรุปผลการทดลองว่าได้ทดลองเปลี่ยนส่วนใด แล้วผลเป็นอย่างไร พร้อมแนบรูปประกอบการทดลอง
-
+เปลี่ยนทุกส่วนตาม##คำอธิบาย
 ### บันทึกผลการทดลอง 3.2.3
 ```html
-[บันทึกโค้ด ที่นี่]
+document.addEventListener("DOMContentLoaded", () => {
+    const bookingForm = document.getElementById("bookingForm");
+    const checkinInput = document.getElementById("checkin");
+    const checkoutInput = document.getElementById("checkout");
+    const phoneInput = document.getElementById("phone");
+    const roomtypeSelect = document.getElementById("roomtype");
+    const guestsInput = document.getElementById("guests");
+
+    // 🔹 ฟังก์ชันตรวจสอบวันที่เช็คอินและเช็คเอาท์แบบ Real-time
+    function validateDates() {
+        let today = new Date().toISOString().split("T")[0]; // วันที่ปัจจุบัน
+        let checkinDate = checkinInput.value;
+        let checkoutDate = checkoutInput.value;
+
+        if (checkinDate < today) {
+            alert("⚠ วันที่เช็คอินต้องไม่เป็นวันที่ผ่านมาแล้ว!");
+            checkinInput.value = "";
+        }
+
+        if (checkoutDate && checkinDate && checkoutDate <= checkinDate) {
+            alert("⚠ วันที่เช็คเอาท์ต้องมากกว่าวันที่เช็คอิน!");
+            checkoutInput.value = "";
+        }
+    }
+
+    // 🔹 ฟังก์ชันตรวจสอบเบอร์โทรศัพท์
+    function validatePhone() {
+        let phoneNumber = phoneInput.value;
+        if (!/^\d{10}$/.test(phoneNumber)) {
+            alert("⚠ เบอร์โทรศัพท์ต้องมี 10 หลัก!");
+            phoneInput.value = "";
+        }
+    }
+
+    // 🔹 ฟังก์ชันกำหนดจำนวนผู้เข้าพักสูงสุดตามประเภทห้อง
+    function adjustGuestsLimit() {
+        let roomType = roomtypeSelect.value;
+        let maxGuests = 1;
+
+        if (roomType === "standard") {
+            maxGuests = 2;
+        } else if (roomType === "deluxe") {
+            maxGuests = 3;
+        } else if (roomType === "suite") {
+            maxGuests = 4;
+        }
+
+        guestsInput.max = maxGuests;
+        guestsInput.value = Math.min(guestsInput.value, maxGuests);
+    }
+
+    // 🔹 ตรวจสอบข้อมูลก่อนส่งฟอร์ม
+    bookingForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const fullname = document.getElementById("fullname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = phoneInput.value.trim();
+        const checkin = checkinInput.value;
+        const checkout = checkoutInput.value;
+        const roomtype = roomtypeSelect.value;
+        const guests = guestsInput.value;
+
+        if (!fullname || !email || !phone || !checkin || !checkout || !roomtype || !guests) {
+            alert("⚠ กรุณากรอกข้อมูลให้ครบทุกช่อง!");
+            return;
+        }
+
+        if (!/^\d{10}$/.test(phone)) {
+            alert("⚠ เบอร์โทรศัพท์ต้องมี 10 หลัก!");
+            return;
+        }
+
+        let today = new Date().toISOString().split("T")[0];
+        if (checkin < today) {
+            alert("⚠ วันที่เช็คอินต้องไม่เป็นวันที่ผ่านมาแล้ว!");
+            return;
+        }
+
+        if (checkout <= checkin) {
+            alert("⚠ วันที่เช็คเอาท์ต้องมากกว่าวันที่เช็คอิน!");
+            return;
+        }
+
+        // 🔹 แสดงรายละเอียดการจองก่อนยืนยัน
+        let confirmBooking = confirm(
+            `✅ โปรดยืนยันการจอง:\n\n` +
+            `📌 ชื่อ: ${fullname}\n` +
+            `📧 อีเมล: ${email}\n` +
+            `📞 โทรศัพท์: ${phone}\n` +
+            `🏨 ประเภทห้อง: ${roomtype}\n` +
+            `👥 ผู้เข้าพัก: ${guests} คน\n` +
+            `📅 เช็คอิน: ${checkin}\n` +
+            `📅 เช็คเอาท์: ${checkout}\n\n` +
+            `ต้องการยืนยันการจองใช่หรือไม่?`
+        );
+
+        if (confirmBooking) {
+            alert("🎉 ขอบคุณที่จองห้องพัก! ระบบได้บันทึกการจองของคุณเรียบร้อยแล้ว ✅");
+            bookingForm.reset();
+        }
+    });
+
+    // 🔹 Event Listeners สำหรับการตรวจสอบแบบ Real-time
+    checkinInput.addEventListener("change", validateDates);
+    checkoutInput.addEventListener("change", validateDates);
+    phoneInput.addEventListener("input", validatePhone);
+    roomtypeSelect.addEventListener("change", adjustGuestsLimit);
+});
+
 ```
 [รูปผลการทดลองที่ 3.2.3]
-
+![image](https://github.com/user-attachments/assets/4680ba75-1040-4cf6-81c3-e485f9f40f12)
+![image](https://github.com/user-attachments/assets/55d22d8e-b76e-43a9-8da8-bd3644866418)
 
 ## คำแนะนำเพิ่มเติม
 - ทดลองเขียนโค้ดทุกตัวอย่างด้วยตัวเอง
