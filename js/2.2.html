@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณคะแนนเฉลี่ยและ VAT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>📌 คำนวณคะแนนเฉลี่ย</h2>
+    <label>คะแนนวิชา 1: <input type="number" id="score1"></label><br>
+    <label>คะแนนวิชา 2: <input type="number" id="score2"></label><br>
+    <label>คะแนนวิชา 3: <input type="number" id="score3"></label><br>
+    <button onclick="calculateAverage()">คำนวณ</button>
+    <p class="result" id="averageResult"></p>
+
+    <hr>
+
+    <h2>🛒 คำนวณราคาสินค้ารวม VAT 7%</h2>
+    <label>ชื่อสินค้า: <input type="text" id="productName"></label><br>
+    <label>ราคาสินค้า: <input type="number" id="productPrice"></label><br>
+    <button onclick="calculateVAT()">คำนวณ</button>
+    <p class="result" id="vatResult"></p>
+
+    <script>
+        function calculateAverage() {
+            let score1 = parseFloat(document.getElementById("score1").value) || 0;
+            let score2 = parseFloat(document.getElementById("score2").value) || 0;
+            let score3 = parseFloat(document.getElementById("score3").value) || 0;
+            let average = (score1 + score2 + score3) / 3;
+            document.getElementById("averageResult").innerText = "คะแนนเฉลี่ย: " + average.toFixed(2);
+        }
+
+        function calculateVAT() {
+            let productName = document.getElementById("productName").value;
+            let productPrice = parseFloat(document.getElementById("productPrice").value) || 0;
+            let vat = productPrice * 0.07;
+            let totalPrice = productPrice + vat;
+            document.getElementById("vatResult").innerText =
+                `สินค้าชื่อ: ${productName} | ราคาสินค้ารวม VAT 7%: ${totalPrice.toFixed(2)} บาท`;
+        }
+    </script>
+
+</body>
+
+</html>

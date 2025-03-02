@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัด JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>1️⃣ ตรวจสอบเลขคู่หรือเลขคี่</h2>
+    <label>ป้อนตัวเลข: <input type="number" id="number"></label>
+    <button onclick="checkEvenOdd()">ตรวจสอบ</button>
+    <p class="result" id="evenOddResult"></p>
+
+    <hr>
+
+    <h2>2️⃣ ตารางสูตรคูณ</h2>
+    <button onclick="multiplicationTable()">แสดงสูตรคูณ</button>
+    <pre class="result" id="multiplicationResult"></pre>
+
+    <hr>
+
+    <h2>3️⃣ นับถอยหลังจาก 10 ถึง 1</h2>
+    <button onclick="countdown()">เริ่มนับถอยหลัง</button>
+    <p class="result" id="countdownResult"></p>
+
+    <hr>
+
+    <h2>4️⃣ ตรวจสอบช่วงวัย</h2>
+    <label>ป้อนอายุ: <input type="number" id="age"></label>
+    <button onclick="checkAge()">ตรวจสอบ</button>
+    <p class="result" id="ageResult"></p>
+
+    <script>
+        function checkEvenOdd() {
+            let number = parseInt(document.getElementById("number").value);
+            let result = (number % 2 === 0) ? "เป็นเลขคู่" : "เป็นเลขคี่";
+            document.getElementById("evenOddResult").innerText = `ผลลัพธ์: ${result}`;
+        }
+
+        function multiplicationTable() {
+            let result = "🔹 สูตรคูณแม่ 2 (ใช้ for loop)\n";
+            for (let i = 1; i <= 12; i++) {
+                result += `2 x ${i} = ${2 * i}\n`;
+            }
+
+            result += "\n🔹 สูตรคูณแม่ 3 (ใช้ while loop)\n";
+            let j = 1;
+            while (j <= 12) {
+                result += `3 x ${j} = ${3 * j}\n`;
+                j++;
+            }
+
+            document.getElementById("multiplicationResult").innerText = result;
+        }
+
+        function countdown() {
+            let result = "⏳ นับถอยหลัง: ";
+            for (let i = 10; i >= 1; i--) {
+                result += i + " ";
+            }
+            document.getElementById("countdownResult").innerText = result;
+        }
+
+        function checkAge() {
+            let age = parseInt(document.getElementById("age").value);
+            let category = "";
+
+            if (age >= 0 && age <= 12) {
+                category = "วัยเด็ก";
+            } else if (age >= 13 && age <= 19) {
+                category = "วัยรุ่น";
+            } else if (age >= 20) {
+                category = "วัยผู้ใหญ่";
+            } else {
+                category = "อายุไม่ถูกต้อง";
+            }
+
+            document.getElementById("ageResult").innerText = `ช่วงวัยของคุณ: ${category}`;
+        }
+    </script>
+
+</body>
+
+</html>
