@@ -662,9 +662,114 @@ process(function() {
 
 ### บันทึกผลการทดลอง 2.4.1
 ```html
-[บันทึกโค้ด ที่นี่]
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        input {
+            margin: 5px;
+            padding: 8px;
+        }
+        
+        button {
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+        
+        .result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>1️⃣ คำนวณค่า BMI</h2>
+    <label>น้ำหนัก (kg): <input type="number" id="weight"></label><br>
+    <label>ส่วนสูง (cm): <input type="number" id="height"></label><br>
+    <button onclick="calculateBMI()">คำนวณ</button>
+    <p class="result" id="bmiResult"></p>
+
+    <hr>
+
+    <h2>2️⃣ ทักทายตามช่วงวัย</h2>
+    <label>ชื่อ: <input type="text" id="name"></label><br>
+    <label>อายุ: <input type="number" id="age"></label><br>
+    <button onclick="greetUser()">ทักทาย</button>
+    <p class="result" id="greetResult"></p>
+
+    <hr>
+
+    <h2>3️⃣ ตรวจสอบรหัสผ่าน</h2>
+    <label>รหัสผ่าน: <input type="password" id="password"></label><br>
+    <button onclick="checkPassword()">ตรวจสอบ</button>
+    <p class="result" id="passwordResult"></p>
+
+    <script>
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById("weight").value);
+            let height = parseFloat(document.getElementById("height").value) / 100; // แปลงเป็นเมตร
+            if (weight > 0 && height > 0) {
+                let bmi = weight / (height * height);
+                let category = "";
+
+                if (bmi < 18.5) {
+                    category = "น้ำหนักต่ำกว่าเกณฑ์";
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    category = "น้ำหนักปกติ";
+                } else if (bmi >= 25 && bmi < 29.9) {
+                    category = "น้ำหนักเกิน";
+                } else {
+                    category = "โรคอ้วน";
+                }
+
+                document.getElementById("bmiResult").innerText = `ค่า BMI: ${bmi.toFixed(2)} (${category})`;
+            } else {
+                document.getElementById("bmiResult").innerText = "กรุณากรอกข้อมูลให้ถูกต้อง";
+            }
+        }
+
+        function greetUser() {
+            let name = document.getElementById("name").value;
+            let age = parseInt(document.getElementById("age").value);
+            let greeting = "";
+
+            if (age >= 0 && age <= 12) {
+                greeting = `สวัสดีหนูน้อย ${name} 😊`;
+            } else if (age >= 13 && age <= 19) {
+                greeting = `Yo! ${name} วัยรุ่นสุดเท่! 😎`;
+            } else if (age >= 20) {
+                greeting = `สวัสดีคุณ ${name} ยินดีที่ได้รู้จัก! 👋`;
+            } else {
+                greeting = "กรุณากรอกอายุให้ถูกต้อง";
+            }
+
+            document.getElementById("greetResult").innerText = greeting;
+        }
+
+        function checkPassword() {
+            let password = document.getElementById("password").value;
+            let result = password.length > 8 ? "✅ รหัสผ่านปลอดภัย" : "❌ รหัสผ่านต้องมีมากกว่า 8 ตัวอักษร";
+            document.getElementById("passwordResult").innerText = result;
+        }
+    </script>
+
+</body>
+
+</html>
 ```
 [รูปผลการทดลองที่ 2.4.1]
+![image](https://github.com/user-attachments/assets/1bf1c9db-f80a-4d45-9a17-f06b526ee768)
 
 
 
